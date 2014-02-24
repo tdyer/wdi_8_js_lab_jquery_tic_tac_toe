@@ -10,6 +10,8 @@ Before you start, consider how you will best track the state of the game.
 
 The CSS and HTML has already been provided and needs minimal (if any) modification.
 
+![Tic Tac Toe Screenshot](https://raw.github.com/ga-wdi-boston/wdi_8_js_lab_jquery_tic_tac_toe/master/img/screen.png "Screenshot")
+
 ### To do:
 * Get the cells to change color when you click on them
 * Get the cell color to alternate on turn
