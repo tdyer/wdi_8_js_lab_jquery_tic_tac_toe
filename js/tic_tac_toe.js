@@ -9,11 +9,22 @@ var board;
 var winningBoardStrs = ['XXX00', '000XXX'];
 
 var setCell = function(event){
+
+  // short circuit, return, if the cell has already been selected
+  if(isCellUsed(this)){
+    return;
+  }
   var cellValue = cellTexts[index];
+
+  // set the cells value, 'X' or 'O'
   this.textContent = cellValue;
+  // index will always be either 0 or 1
   index = (index + 1) % 2;
+
+  // set the board, 2D array, element corresponding to the cell selected.
   board[parseInt(this.dataset.row)][parseInt(this.dataset.col)] = cellValue;
 
+  // check if we have a winning combination of X's or O's
   var winner = isWinnerMatch(cellValue === 'X' ? true : false);
   if(winner){
     alert("We have a winner for " + cellValue);
@@ -22,14 +33,14 @@ var setCell = function(event){
   //checkWinner();
 };
 
-function checkWinner(){
-  var flatBoard = flatten(board),
-      boardStr = flatBoard.join('');
+// function checkWinner(){
+//   var flatBoard = flatten(board),
+//       boardStr = flatBoard.join('');
 
-  if( winningBoardStrs.includes(boardStr)){
-    alert("Doneso");
-  }
-};
+//   if( winningBoardStrs.includes(boardStr)){
+//     alert("Doneso");
+//   }
+// };
 
 function flatten(array){
   var flatArray = [];
@@ -50,6 +61,11 @@ function resetBoard(){
 
   // reset to use 'X'
   index = 0;
+};
+
+// return true if the cell has a value, typically 'X' or 'O'
+function isCellUsed(cell){
+  return cell.textContent === '' ? false : true;
 };
 
 function isWinnerMatch(isX){
