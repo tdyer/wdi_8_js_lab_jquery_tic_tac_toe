@@ -1,17 +1,36 @@
-var Game.Cell = (function(w, doc){
+/* global TGDGame */
+// Create a namespace for game
+'use strict';
+
+var TGDGame = TGDGame || {};
+
+TGDGame.Cell = (function(){
+
+  var _noPlayerHTML = '';
+
   function Cell(cellDOMElement){
     this.domEl = cellDOMElement;
-    this.row = w.parseInt(this.domEl.target.dataset.row);
-    this.column = w.parseInt(this.domEl.target.dataset.row);
-  }
-
-  Cell.prototype.resetContents = function(){
-    this.domEl.textContent = '';
+    this.player;
   };
 
+  // true if cell has a player, it was selected.
   Cell.prototype.isSelected = function(){
-    return this.domEl.textContent === '' ? false : true;
+    return (this.player !== undefined);
+  };
+
+  // render player's HTML or empty string.
+  Cell.prototype.render = function(){
+    if(this.isSelected()){
+      this.domEl.innerHTML = this.player.render();
+    }else {
+      this.domEl.innerHTML = _noPlayerHTML; 
+    }
+    return this;
+  };
+
+  Cell.prototype.setPlayer = function(player){
+    this.player = player;
   };
 
   return Cell;
-}(window, document))
+}())
