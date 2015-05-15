@@ -5,7 +5,11 @@
 	<!-- <link href='http://fonts.googleapis.com/css?family=Finger+Paint' rel='stylesheet' type='text/css'> -->
 	<!--	<script src="js/jquery-2.1.0.min.js"></script> -->
 	<!-- <script type="text/javascript" src="js/tic_tac_toe.js"></script> -->
-	<script type="text/javascript" src="js/game_board.js"></script>
+	<script type="text/javascript" src="js/player.js"></script>
+	<script type="text/javascript" src="js/cell.js"></script>
+	<script type="text/javascript" src="js/board.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
 </head>
 <body>
 	<div id="main_container">
@@ -14,28 +18,30 @@
 		<table>
 			<tbody id="game_board">
 				<tr class="box_row" >
-					<td id="box_0_0" class="box_cell" data-row="0" data-col="0"></td>
+					<td class="box_cell" data-cell="0"></td>
 
-					<td id="box_0_1" class="box_cell" data-row="0" data-col="1"></td>
+					<td class="box_cell" data-cell="1" ></td>
 
-					<td id="box_0_2" class="box_cell" data-row="0" data-col="2"></td>
+					<td class="box_cell" data-cell="2"></td>
 				</tr>
 				<tr class="box_row">
-					<td id="box_1_0" class="box_cell" data-row="1" data-col="0"></td>
+					<td class="box_cell" data-cell="3"></td>
 
-					<td id="box_1_1" class="box_cell" data-row="1" data-col="1"></td>
+					<td class="box_cell" data-cell="4"></td>
 
-					<td id="box_1_2" class="box_cell" data-row="1" data-col="2"></td>
+					<td class="box_cell" data-cell="5" ></td>
 				</tr>
 				<tr class="box_row">
-					<td id="box_2_0" class="box_cell" data-row="2" data-col="0"></td>
+					<td class="box_cell" data-cell="6"></td>
 
-					<td id="box_2_1" class="box_cell" data-row="2" data-col="1"></td>
+					<td class="box_cell" data-cell="7"></td>
 
-					<td id="box_2_2" class="box_cell" data-row="2" data-col="2"></td>
+					<td class="box_cell" data-cell="8"></td>
 				</tr>
 			</tbody>
 		</table>
+		<input type="button" id='reset-game'>Reset Game</input>
+
 	</div>
 
 </body>
