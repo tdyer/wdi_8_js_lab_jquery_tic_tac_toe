@@ -11,24 +11,15 @@ TGDGame.Board = (function(w, doc){
       _playerChooser = 0,
       _gameOver = false;
 
-  // True if checkCell value is equal to the str.
+  // True if cell in _board[index] matches str.
   function checkCell(index, str){
-    var result = false;
-    var cellToCheck = _board[index];
-
-    if(cellToCheck.player === undefined){
-      result = false;
-    }else{
-      result = cellToCheck.player.getContent() === str;
-    }
-    return result;
+    // if cell is selected and it's content is equal to str
+    return _board[index].isSelected() && _board[index].player.getContent() === str;
   };
 
   function _isWinner(player){
     var s = player.getContent();
-    var match = false;
-
-    match = (
+    return (
       checkCell(0, s) && checkCell(1, s) && checkCell(2,s) ||
         checkCell(3, s) && checkCell(4, s) && checkCell(5,s) ||
         checkCell(6, s) && checkCell(7, s) && checkCell(8,s) ||
@@ -37,17 +28,24 @@ TGDGame.Board = (function(w, doc){
         checkCell(2, s) && checkCell(5, s) && checkCell(8,s)
     );
 
-    return match;
   };
 
-  function _allCells(){
+  // get all the cells in the game
+  function _getAllCells(){
     return doc.getElementsByClassName('box_cell');
   };
 
+  // invoke an Array method, .e.g. forEach, on a non-Array collection.
+  // cb is the function passed to the Array method.
   function _allCellsInvoke(operation, cb){
-    Array.prototype[operation].call(_allCells(), cb)
+    // getElementsByClassName returns a HTMLCollection which 
+    // does NOT have a forEach method.
+    // So, lets give this HTMLCollection instance a forEach method.
+    var htmlCollection = _getAllCells();
+    Array.prototype[operation].call(htmlCollection, cb)
   }
 
+  // reset the game board
   function _reset(){
     var cell;
     // reset internal board
@@ -55,32 +53,39 @@ TGDGame.Board = (function(w, doc){
     _playerChooser = 0;
     _gameOver = false;
 
+    // create 9 Cell instances
     _allCellsInvoke('forEach', function(domElement){
       cell = new TGDGame.Cell(domElement);
-      cell.render();
-      _board.push(cell);
+      cell.render(); // reset cell to empty string
+      _board.push(cell); // Add cell instance to the board
     });
   };
 
+  // add players to this board.
   function _setPlayers(players){
     // should be an array of players
     _players = players;
     _numOfPlayers = _players.length;
   }
 
+  // click handler
   function _boardClickHandler(event){
+    // get the index of the clicked cell from the html elements 
+    // data attribute,'data-cell'
     var cellIndex = event.target.dataset.cell,
         cell = _board[cellIndex],
         currentPlayer;
 
-    // Don't select a cell twice
+    // Don't select a cell twice or add to completed game
     if(cell.isSelected() || _gameOver){
       return;
     }
 
+    // get the current player
     currentPlayer = _players[_playerChooser];
+    // add the current player to the clicked cell.
     cell.setPlayer(currentPlayer);
-    cell.render();
+    cell.render(); 
     _playerChooser = (_playerChooser + 1) % _numOfPlayers;
 
     // see if we have a winner
