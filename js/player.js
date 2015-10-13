@@ -13,9 +13,10 @@ TGDGame.Player = (function(){
   Player.prototype.getName = function(){
     return this.name;
   };
-  
+
   Player.prototype.getContent = function(){
     return this.content;
-  }
+  };
+
   return Player;
 })();

@@ -12,7 +12,7 @@ window.onload = function(){
       new TGDGame.Player('joanne', 'O')
       ]);
 
-  // board onclick event handler
+  // set the board onclick event handler
   document.getElementById('game_board').onclick = TGDGame.Board.boardClickHandler;
 
   // game reset event handler

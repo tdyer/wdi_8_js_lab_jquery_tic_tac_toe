@@ -5,6 +5,7 @@ var TGDGame = TGDGame || {};
 
 TGDGame.Board = (function(w, doc){
 
+  // private variables, locally scoped.
   var _board = [],
       _players,
       _numOfPlayers,
@@ -17,20 +18,22 @@ TGDGame.Board = (function(w, doc){
     return _board[index].isSelected() && _board[index].player.getContent() === str;
   };
 
+  // test for any 1 of 8 winning patterns
   function _isWinner(player){
     var s = player.getContent();
     return (
-      checkCell(0, s) && checkCell(1, s) && checkCell(2,s) ||
-        checkCell(3, s) && checkCell(4, s) && checkCell(5,s) ||
-        checkCell(6, s) && checkCell(7, s) && checkCell(8,s) ||
-        checkCell(0, s) && checkCell(3, s) && checkCell(6,s) ||
-        checkCell(1, s) && checkCell(4, s) && checkCell(7,s) ||
-        checkCell(2, s) && checkCell(5, s) && checkCell(8,s)
+      checkCell(0, s) && checkCell(1, s) && checkCell(2,s) ||  // first row from top
+      checkCell(3, s) && checkCell(4, s) && checkCell(5,s) ||  // second row from top
+      checkCell(6, s) && checkCell(7, s) && checkCell(8,s) ||  // last row from top
+      checkCell(0, s) && checkCell(3, s) && checkCell(6,s) ||  // first column on left
+      checkCell(1, s) && checkCell(4, s) && checkCell(7,s) ||  // middle column
+      checkCell(2, s) && checkCell(5, s) && checkCell(8,s) ||  // last column on left
+      checkCell(0, s) && checkCell(4, s) && checkCell(8,s) ||  //diagonal right to left
+      checkCell(2, s) && checkCell(4, s) && checkCell(6,s)  // diagonal left to rigth
     );
-
   };
 
-  // get all the cells in the game
+  // get all the cells, DOM elements, in the game
   function _getAllCells(){
     return doc.getElementsByClassName('box_cell');
   };
@@ -38,7 +41,7 @@ TGDGame.Board = (function(w, doc){
   // invoke an Array method, .e.g. forEach, on a non-Array collection.
   // cb is the function passed to the Array method.
   function _allCellsInvoke(operation, cb){
-    // getElementsByClassName returns a HTMLCollection which 
+    // getElementsByClassName returns a HTMLCollection which
     // does NOT have a forEach method.
     // So, lets give this HTMLCollection instance a forEach method.
     var htmlCollection = _getAllCells();
@@ -54,6 +57,8 @@ TGDGame.Board = (function(w, doc){
     _gameOver = false;
 
     // create 9 Cell instances
+    // Iterate over all the cells on the board and set handlers
+    // for each.
     _allCellsInvoke('forEach', function(domElement){
       cell = new TGDGame.Cell(domElement);
       cell.render(); // reset cell to empty string
@@ -70,7 +75,7 @@ TGDGame.Board = (function(w, doc){
 
   // click handler
   function _boardClickHandler(event){
-    // get the index of the clicked cell from the html elements 
+    // get the index of the clicked cell from the html elements
     // data attribute,'data-cell'
     var cellIndex = event.target.dataset.cell,
         cell = _board[cellIndex],
@@ -85,7 +90,9 @@ TGDGame.Board = (function(w, doc){
     currentPlayer = _players[_playerChooser];
     // add the current player to the clicked cell.
     cell.setPlayer(currentPlayer);
-    cell.render(); 
+    cell.render();
+
+    // get the index of the next player.
     _playerChooser = (_playerChooser + 1) % _numOfPlayers;
 
     // see if we have a winner

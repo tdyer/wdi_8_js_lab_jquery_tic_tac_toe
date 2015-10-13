@@ -10,7 +10,6 @@ TGDGame.Cell = (function(){
 
   function Cell(cellDOMElement){
     this.domEl = cellDOMElement;
-    this.player;
   };
 
   // true if cell has a player, it was selected.
@@ -23,7 +22,7 @@ TGDGame.Cell = (function(){
     if(this.isSelected()){
       this.domEl.innerHTML = this.player.render();
     }else {
-      this.domEl.innerHTML = _noPlayerHTML; 
+      this.domEl.innerHTML = _noPlayerHTML;
     }
     return this;
   };
@@ -33,4 +32,4 @@ TGDGame.Cell = (function(){
   };
 
   return Cell;
-}())
+})();
