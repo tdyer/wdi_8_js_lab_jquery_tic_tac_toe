@@ -8,8 +8,6 @@ window.onload = function(){
 
   // Create the players;
   TGDGame.Board.setPlayers([
-    // new TGDGame.Player('tom', 'X'),
-    // new TGDGame.Player('joanne', 'O')
     new TGDGame.Player('tom', '<img class="box_image" src="./img/gnu.svg">'),
     new TGDGame.Player('joanne', '<img class="box_image" src="./img/linux.svg">')
   ]);
