@@ -14,7 +14,8 @@ window.onload = function(){
     new TGDGame.Player('joanne', '<img class="box_image" src="./img/linux.svg">')
   ]);
 
-  // set the board onclick event handler  document.getElementById('game_board').onclick = TGDGame.Board.boardClickHandler;
+  // set the board onclick event handler
+  document.getElementById('game_board').onclick = TGDGame.Board.boardClickHandler;
   // game reset event handler
   document.getElementById('reset-game').onclick = TGDGame.Board.reset;
 };
