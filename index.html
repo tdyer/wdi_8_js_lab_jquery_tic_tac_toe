@@ -6,7 +6,20 @@
   <body>
 
     <div id="main_container">
+
+      <div id="msg">
+      </div>
+
       <h1 id="main_heading" class="heading" >Tic! Tac! Toe!</h1>
+      <div id="game-input">
+          <form id="register">
+            <input name="email" type="text" placeholder="email">
+            <input name="password" type="password" placeholder="password">
+            <input name="password_confirmation" type="password" placeholder="password confirmation">
+            <input name="register" type="submit" value="Register">
+          </form>
+      </div>
+
       <h2 id="winning"></h2>
       <table>
 	<tbody id="game_board">
@@ -29,7 +42,10 @@
       </table>
       <input type="button" id='reset-game'>Reset Game</input>
     </div>
-
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/user.js"></script>
+    <script type="text/javascript" src="js/ttapi.js"></script>
     <script type="text/javascript" src="js/player.js"></script>
     <script type="text/javascript" src="js/cell.js"></script>
     <script type="text/javascript" src="js/board.js"></script>

@@ -16,4 +16,8 @@ window.onload = function(){
   document.getElementById('game_board').onclick = TGDGame.Board.boardClickHandler;
   // game reset event handler
   document.getElementById('reset-game').onclick = TGDGame.Board.reset;
+
+  // registration handler
+  document.getElementById('register').onsubmit = TGDGame.User.create;
+
 };
